@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tip Calculator</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="app">
+
+    <header>
+      <h1>TipSplit</h1>
+      <p>Split bills without the headache</p>
+    </header>
+
+    <main>
+
+      <!-- LEFT: Inputs -->
+      <section class="inputs">
+
+        <div class="field">
+          <label for="bill">Bill Amount</label>
+          <div class="input-wrap">
+            <span class="prefix">Rs</span>
+            <input
+              type="number"
+              id="bill"
+              placeholder="0.00"
+              min="0"
+              step="any"
+              autocomplete="off"
+            />
+          </div>
+          <span class="error" id="bill-error"></span>
+        </div>
+
+        <div class="field">
+          <label>Tip %</label>
+          <div class="tip-presets">
+            <button class="preset" data-value="10">10%</button>
+            <button class="preset" data-value="15">15%</button>
+            <button class="preset" data-value="20">20%</button>
+            <button class="preset" data-value="custom">Custom</button>
+          </div>
+          <div class="input-wrap" id="custom-wrap" style="display:none; margin-top: 10px;">
+            <input
+              type="number"
+              id="tip"
+              placeholder="e.g. 12"
+              min="0"
+              max="100"
+              step="any"
+              autocomplete="off"
+            />
+            <span class="suffix">%</span>
+          </div>
+          <span class="error" id="tip-error"></span>
+        </div>
+
+        <div class="field">
+          <label for="people">Number of People</label>
+          <div class="input-wrap">
+            <input
+              type="number"
+              id="people"
+              placeholder="1"
+              min="1"
+              step="1"
+              autocomplete="off"
+            />
+          </div>
+          <span class="error" id="people-error"></span>
+        </div>
+
+        <button id="reset-btn">Reset</button>
+
+      </section>
+
+      <!-- RIGHT: Results -->
+      <section class="results">
+
+        <div class="result-card">
+          <div class="result-row">
+            <div>
+              <p class="result-label">Tip Amount</p>
+              <p class="result-sub">per person</p>
+            </div>
+            <p class="result-value" id="tip-per-person">Rs 0.00</p>
+          </div>
+
+          <div class="result-row">
+            <div>
+              <p class="result-label">Total</p>
+              <p class="result-sub">per person</p>
+            </div>
+            <p class="result-value" id="total-per-person">Rs 0.00</p>
+          </div>
+
+          <div class="result-row">
+            <div>
+              <p class="result-label">Grand Total</p>
+              <p class="result-sub">bill + tip</p>
+            </div>
+            <p class="result-value" id="grand-total">Rs 0.00</p>
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

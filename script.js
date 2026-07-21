@@ -7,7 +7,7 @@ const customWrap   = document.getElementById('custom-wrap');
 const resetBtn     = document.getElementById('reset-btn');
 
 const billError    = document.getElementById('bill-error');
-const tipError     = document.getElementById('tip-error');
+const tipError      = document.getElementById('tip-error');
 const peopleError  = document.getElementById('people-error');
 
 const tipPerPerson    = document.getElementById('tip-per-person');
@@ -21,11 +21,11 @@ let activeTipValue = null;
 
 // ---- PRESET BUTTON LOGIC ----
 
-presetBtns.forEach(function(btn) {
-  btn.addEventListener('click', function() {
+presetBtns.forEach((btn) => {
+  btn.addEventListener('click', () => {
 
     // clear active from all
-    presetBtns.forEach(function(b) { b.classList.remove('active'); });
+    presetBtns.forEach((b) => b.classList.remove('active'));
     btn.classList.add('active');
 
     if (btn.dataset.value === 'custom') {
@@ -46,18 +46,18 @@ presetBtns.forEach(function(btn) {
 
 // ---- INPUT EVENT LISTENERS ----
 
-billInput.addEventListener('input', function() {
+billInput.addEventListener('input', () => {
   clearError(billError, billInput);
   calculate();
 });
 
-tipInput.addEventListener('input', function() {
+tipInput.addEventListener('input', () => {
   activeTipValue = parseFloat(tipInput.value);
   clearError(tipError, tipInput);
   calculate();
 });
 
-peopleInput.addEventListener('input', function() {
+peopleInput.addEventListener('input', () => {
   clearError(peopleError, peopleInput);
   calculate();
 });
@@ -65,12 +65,12 @@ peopleInput.addEventListener('input', function() {
 
 // ---- MAIN CALCULATE FUNCTION ----
 
-function calculate() {
-  var bill   = parseFloat(billInput.value);
-  var tip    = activeTipValue;
-  var people = parseInt(peopleInput.value, 10);
+const calculate = () => {
+  const bill   = parseFloat(billInput.value);
+  let tip      = activeTipValue;
+  const people = parseInt(peopleInput.value, 10);
 
-  var valid = true;
+  let valid = true;
 
   // validate bill
   if (billInput.value.trim() === '') {
@@ -117,30 +117,27 @@ function calculate() {
 
   // ---- ACTUAL MATH ----
 
-  var totalTip   = bill * (tip / 100);
-  var total      = bill + totalTip;
+  const totalTip = bill * (tip / 100);
+  const total    = bill + totalTip;
 
   // rounding policy: round up to nearest paisa (ceil at 2 decimal places)
   // so the group never collectively underpays
-  var tipEach    = Math.ceil((totalTip / people) * 100) / 100;
-  var totalEach  = Math.ceil((total / people) * 100) / 100;
+  const tipEach   = Math.ceil((totalTip / people) * 100) / 100;
+  const totalEach = Math.ceil((total / people) * 100) / 100;
 
-  tipPerPerson.textContent   = "Rs " + tipEach.toFixed(2);
-  totalPerPerson.textContent = "Rs " + totalEach.toFixed(2);
-  grandTotal.textContent     = "Rs " + total.toFixed(2);
-}
+  tipPerPerson.textContent   = `Rs ${tipEach.toFixed(2)}`;
+  totalPerPerson.textContent = `Rs ${totalEach.toFixed(2)}`;
+  grandTotal.textContent     = `Rs ${total.toFixed(2)}`;
+};
 
-
-// ---- RESET ----
-
-resetBtn.addEventListener('click', function() {
+resetBtn.addEventListener('click', () => {
   billInput.value   = '';
   tipInput.value    = '';
   peopleInput.value = '';
   activeTipValue    = null;
   customWrap.style.display = 'none';
 
-  presetBtns.forEach(function(b) { b.classList.remove('active'); });
+  presetBtns.forEach((b) => b.classList.remove('active'));
 
   clearError(billError, billInput);
   clearError(tipError, tipInput);
@@ -153,18 +150,18 @@ resetBtn.addEventListener('click', function() {
 
 // ---- HELPERS ----
 
-function showError(errorEl, inputEl, message) {
+const showError = (errorEl, inputEl, message) => {
   errorEl.textContent = message;
   inputEl.classList.add('has-error');
-}
+};
 
-function clearError(errorEl, inputEl) {
+const clearError = (errorEl, inputEl) => {
   errorEl.textContent = '';
   inputEl.classList.remove('has-error');
-}
+};
 
-function resetDisplay() {
+const resetDisplay = () => {
   tipPerPerson.textContent   = "Rs 0.00";
   totalPerPerson.textContent = "Rs 0.00";
   grandTotal.textContent     = "Rs 0.00";
-}
+};
